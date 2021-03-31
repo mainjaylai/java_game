@@ -187,6 +187,7 @@ class game extends JFrame implements ActionListener, ChangeListener, Runnable {
     @Override
     public void actionPerformed(ActionEvent e) {
         Thread td = new Thread(this);
+        boolean close=false;
         for (int i = 0; i < 3; i++)
             if (e.getSource() == action[i]) {
                 move(0, i);
@@ -194,19 +195,21 @@ class game extends JFrame implements ActionListener, ChangeListener, Runnable {
                 break;
             }
         td.start();
-        if (isover()) {
+        if (!close&&isover()) {
             this.dispose();
             choose window = new choose();
             window.setVisible(true);
+            close=true;
         }
         Random rand1 = new Random();
         int rand = rand1.nextInt(3);
         move(1, rand);
         hero[0].setdefence(false);
-        if (isover()) {
+        if (!close&&isover()) {
             this.dispose();
             choose window = new choose();
             window.setVisible(true);
+            close=true;
         }
     }
 
